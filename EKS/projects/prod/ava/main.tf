@@ -28,3 +28,10 @@ module "subnet_private_01" {
   subnet_name = "${var.subnet_private_01}"
   subnet_az   = "${var.subnet_private_01_az}"
 }
+
+module "security_groups" {
+  source = "../../../modules/security_group"
+
+  cluster_name = "${var.cluster_name}"
+  vpc_id      = "${module.vpc.id}"
+}

@@ -29,3 +29,11 @@ output "subnet_private_01_id" {
 output "subnet_private_01_az" {
   value = "${var.subnet_private_01_az}"
 }
+
+output "security_group_demo-node_id" {
+  value = "${module.security_groups.demo-node_id}"
+}
+
+output "security_group_demo-cluster_id" {
+  value = "${module.security_groups.demo-cluster_id}"
+}
