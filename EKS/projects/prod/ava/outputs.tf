@@ -38,10 +38,14 @@ output "security_group_demo-cluster_id" {
   value = "${module.security_groups.demo-cluster_id}"
 }
 
-output "iam_arn" {
-  value = "${module.iam.iam_role_arn}"
+output "iam_arn1" {
+  value = "${module.iam.iam_role_arn_cluster}"
 }
 
-output "endpoint" {
-  value = "${aws_eks_cluster.demo.endpoint}"
+output "iam_arn2" {
+  value = "${module.iam.iam_role_arn_node}"
 }
+
+# output "endpoint" {
+#   value = "${aws_eks_cluster.demo.endpoint}"
+# }
