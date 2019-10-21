@@ -41,3 +41,7 @@ output "security_group_demo-cluster_id" {
 output "iam_arn" {
   value = "${module.iam.iam_role_arn}"
 }
+
+output "endpoint" {
+  value = "${aws_eks_cluster.demo.endpoint}"
+}

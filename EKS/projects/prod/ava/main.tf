@@ -38,5 +38,20 @@ module "security_groups" {
 
 module "iam" {
   source = "../../../modules/iam"
-  
+
+}
+
+resource "aws_eks_cluster" "demo" {
+  name     = "${var.cluster_name}"
+  role_arn = "${module.iam.iam_role_arn}"
+
+  vpc_config {
+    security_group_ids = ["${module.security_groups.demo-cluster_id}"]
+    subnet_ids         = ["${module.subnet_public.id}","${module.subnet_private_01.id}"]
+  }
+
+  # depends_on = [
+  #   "aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy",
+  #   "aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy",
+  # ]
 }
