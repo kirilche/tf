@@ -37,3 +37,7 @@ output "security_group_demo-node_id" {
 output "security_group_demo-cluster_id" {
   value = "${module.security_groups.demo-cluster_id}"
 }
+
+output "iam_arn" {
+  value = "${module.iam.iam_role_arn}"
+}

@@ -35,3 +35,8 @@ module "security_groups" {
   cluster_name = "${var.cluster_name}"
   vpc_id      = "${module.vpc.id}"
 }
+
+module "iam" {
+  source = "../../../modules/iam"
+  
+}
