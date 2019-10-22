@@ -3,8 +3,8 @@ resource "aws_eks_cluster" "demo" {
   role_arn = "${var.role_arn}"
 
   vpc_config {
-    security_group_ids = "${var.sgs}"
-    subnet_ids         = "${var.subnets}"
+    security_group_ids = ["${var.sgs}"]
+    subnet_ids         = ["${var.subnets}"]
   }
 
   #   depends_on = [

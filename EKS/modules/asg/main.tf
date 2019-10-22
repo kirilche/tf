@@ -27,7 +27,7 @@ resource "aws_launch_configuration" "demo" {
   image_id                    = "${data.aws_ami.eks-worker.id}"
   instance_type               = "${var.instance_type}"
   name_prefix                 = "terraform-eks-demo"
-  security_groups             = "${var.security_groups}"
+  security_groups             = ["${var.security_groups}"]
   user_data_base64            = "${base64encode(local.demo-node-userdata)}"
 
   lifecycle {
@@ -41,7 +41,7 @@ resource "aws_autoscaling_group" "demo" {
   max_size             = 2
   min_size             = 1
   name                 = "terraform-eks-demo"
-  vpc_zone_identifier  = "${var.vpc_zone_identifier}"
+  vpc_zone_identifier  = ["${var.vpc_zone_identifier}"]
 
   tag {
     key                 = "Name"
