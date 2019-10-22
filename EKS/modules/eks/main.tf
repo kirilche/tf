@@ -7,8 +7,8 @@ resource "aws_eks_cluster" "demo" {
     subnet_ids         = "${var.subnets}"
   }
 
-#   depends_on = [
-#     "aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy",
-#     "aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy",
-#   ]
+  #   depends_on = [
+  #     "aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy",
+  #     "aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy",
+  #   ]
 }

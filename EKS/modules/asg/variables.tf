@@ -6,15 +6,15 @@ variable "cluster_version" {}
 variable "iam_instance_profile" {}
 
 variable "instance_type" {
-    default = "t2.micro"
+  default = "t2.micro"
 }
 
 variable "security_groups" {
-    type    = "list"
-    default     = []
+  type    = "list"
+  default = []
 }
 
 variable "vpc_zone_identifier" {
-    type    = "list"
-    default     = []
+  type    = "list"
+  default = []
 }

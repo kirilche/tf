@@ -3,14 +3,12 @@ resource "aws_subnet" "private" {
   cidr_block        = "${var.subnet_cidr}"
   availability_zone = "${var.subnet_az}"
 
-  
   tags = "${
     map(
       "Name", "private_${var.subnet_name}",
       "kubernetes.io/cluster/${var.cluster_name}", "shared",
     )
   }"
-
 }
 
 # Routing table for private subnet

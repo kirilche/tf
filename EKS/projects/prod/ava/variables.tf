@@ -3,12 +3,10 @@ variable "cluster_name" {
   type    = "string"
 }
 
-
 variable "vpc_region" {
   description = "AWS region"
   default     = "eu-west-1"
 }
-
 
 variable "vpc_name" {
   description = "VPC for building demos"

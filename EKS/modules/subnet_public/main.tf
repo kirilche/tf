@@ -3,7 +3,7 @@ resource "aws_subnet" "public" {
   vpc_id            = "${var.vpc_id}"
   cidr_block        = "${var.subnet_cidr}"
   availability_zone = "${var.subnet_az}"
-  
+
   tags = "${
     map(
       "Name", "public_${var.subnet_name}",
@@ -11,7 +11,6 @@ resource "aws_subnet" "public" {
       "kubernetes.io/role/internal_elb", "1",
     )
   }"
-
 }
 
 ## Internet gateway

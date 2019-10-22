@@ -7,5 +7,4 @@ resource "aws_vpc" "primary_vpc" {
       "kubernetes.io/cluster/${var.cluster_name}", "shared",
     )
   }"
-
 }

@@ -1,3 +1,3 @@
 provider "aws" {
-  region     = "${var.vpc_region}"
+  region = "${var.vpc_region}"
 }
