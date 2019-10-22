@@ -47,7 +47,7 @@ output "iam_arn2" {
 }
 
 output "endpoint" {
-  value = "${aws_eks_cluster.demo.endpoint}"
+  value = "${module.eks.endpoint}"
 }
 
 #
@@ -78,8 +78,8 @@ CONFIGMAPAWSAUTH
 apiVersion: v1
 clusters:
 - cluster:
-    server: ${aws_eks_cluster.demo.endpoint}
-    certificate-authority-data: ${aws_eks_cluster.demo.certificate_authority.0.data}
+    server: ${module.eks.endpoint}
+    certificate-authority-data: ${module.eks.ca}
   name: kubernetes
 contexts:
 - context:

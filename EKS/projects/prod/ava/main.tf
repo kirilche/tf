@@ -41,76 +41,25 @@ module "iam" {
 
 }
 
-resource "aws_eks_cluster" "demo" {
+module "eks" {
+  source = "../../../modules/eks"
+
   name     = "${var.cluster_name}"
   role_arn = "${module.iam.iam_role_arn_cluster}"
 
-  vpc_config {
-    security_group_ids = ["${module.security_groups.demo-cluster_id}"]
-    subnet_ids         = ["${module.subnet_public.id}","${module.subnet_private_01.id}"]
-  }
+  sgs = ["${module.security_groups.demo-cluster_id}"]
+  subnets         = ["${module.subnet_public.id}","${module.subnet_private_01.id}"]
 
-  # depends_on = [
-  #   "aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy",
-  #   "aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy",
-  # ]
 }
 
-data "aws_ami" "eks-worker" {
-  filter {
-    name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.demo.version}-v*"]
-  }
+module "asg" {
+  source = "../../../modules/asg"
 
-  most_recent = true
-  owners      = ["602401143452"] # Amazon EKS AMI Account ID
-}
-
-# EKS currently documents this required userdata for EKS worker nodes to
-# properly configure Kubernetes applications on the EC2 instance.
-# We utilize a Terraform local here to simplify Base64 encoding this
-# information into the AutoScaling Launch Configuration.
-# More information: https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html
-locals {
-  demo-node-userdata = <<USERDATA
-#!/bin/bash
-set -o xtrace
-/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.demo.endpoint}' --b64-cluster-ca '${aws_eks_cluster.demo.certificate_authority.0.data}' '${var.cluster_name}'
-USERDATA
-}
-
-
-resource "aws_launch_configuration" "demo" {
-  associate_public_ip_address = true
+  cluster_name = "${var.cluster_name}"
+  cluster_version             = "${module.eks.version}"
+  cluster_endpoint = "${module.eks.endpoint}"
+  cluster_ca = "${module.eks.ca}"
   iam_instance_profile        = "${module.iam.instance_profile_name}"
-  image_id                    = "${data.aws_ami.eks-worker.id}"
-  instance_type               = "t2.micro"
-  name_prefix                 = "terraform-eks-demo"
   security_groups             = ["${module.security_groups.demo-node_id}"]
-  user_data_base64            = "${base64encode(local.demo-node-userdata)}"
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_autoscaling_group" "demo" {
-  desired_capacity     = 2
-  launch_configuration = "${aws_launch_configuration.demo.id}"
-  max_size             = 2
-  min_size             = 1
-  name                 = "terraform-eks-demo"
-  vpc_zone_identifier  = ["${module.subnet_private_01.id}"]
-
-  tag {
-    key                 = "Name"
-    value               = "terraform-eks-demo"
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = "kubernetes.io/cluster/${var.cluster_name}"
-    value               = "owned"
-    propagate_at_launch = true
-  }
+  vpc_zone_identifier         = ["${module.subnet_private_01.id}"]
 }
