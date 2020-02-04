@@ -1,6 +1,6 @@
 variable "cluster_name" {
   default = "terraform-eks-cluster"
-  type    = "string"
+  type = string
 }
 
 variable "vpc_region" {

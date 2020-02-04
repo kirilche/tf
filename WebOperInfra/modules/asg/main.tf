@@ -23,12 +23,12 @@ USERDATA
 
 resource "aws_launch_configuration" "demo" {
   associate_public_ip_address = true
-  iam_instance_profile        = "${var.iam_instance_profile}"
-  image_id                    = "${data.aws_ami.eks-worker.id}"
-  instance_type               = "${var.instance_type}"
+  iam_instance_profile        = var.iam_instance_profile
+  image_id                    = data.aws_ami.eks-worker.id
+  instance_type               = var.instance_type
   name_prefix                 = "terraform-eks-demo"
-  security_groups             = ["${var.security_groups}"]
-  user_data_base64            = "${base64encode(local.demo-node-userdata)}"
+  security_groups             = var.security_groups
+  user_data_base64            = base64encode(local.demo-node-userdata)
 
   lifecycle {
     create_before_destroy = true
@@ -37,11 +37,11 @@ resource "aws_launch_configuration" "demo" {
 
 resource "aws_autoscaling_group" "demo" {
   desired_capacity     = 2
-  launch_configuration = "${aws_launch_configuration.demo.id}"
+  launch_configuration = aws_launch_configuration.demo.id
   max_size             = 2
   min_size             = 1
   name                 = "terraform-eks-demo"
-  vpc_zone_identifier  = ["${var.vpc_zone_identifier}"]
+  vpc_zone_identifier  = var.vpc_zone_identifier
 
   tag {
     key                 = "Name"

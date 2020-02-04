@@ -10,11 +10,11 @@ variable "instance_type" {
 }
 
 variable "security_groups" {
-  type    = "list"
+  type    = list(string)
   default = []
 }
 
 variable "vpc_zone_identifier" {
-  type    = "list"
+  type    = list(string)
   default = []
 }

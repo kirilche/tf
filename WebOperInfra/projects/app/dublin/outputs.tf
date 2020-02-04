@@ -1,53 +1,53 @@
 output "vpc" {
-  value = "${module.vpc.name}"
+  value = module.vpc.name
 }
 
 output "vpc_region" {
-  value = "${module.vpc.region}"
+  value = module.vpc.region
 }
 
 output "subnet_public" {
-  value = "${module.subnet_public.name}"
+  value = module.subnet_public.name
 }
 
 output "subnet_public_az" {
-  value = "${module.subnet_public.az}"
+  value = module.subnet_public.az
 }
 
 output "subnet_public_id" {
-  value = "${module.subnet_public.id}"
+  value = module.subnet_public.id
 }
 
 output "subnet_private_01" {
-  value = "${module.subnet_private_01.name}"
+  value = module.subnet_private_01.name
 }
 
 output "subnet_private_01_id" {
-  value = "${module.subnet_private_01.id}"
+  value = module.subnet_private_01.id
 }
 
 output "subnet_private_01_az" {
-  value = "${var.subnet_private_01_az}"
+  value = var.subnet_private_01_az
 }
 
 output "security_group_demo-node_id" {
-  value = "${module.security_groups.demo-node_id}"
+  value = module.security_groups.demo-node_id
 }
 
 output "security_group_demo-cluster_id" {
-  value = "${module.security_groups.demo-cluster_id}"
+  value = module.security_groups.demo-cluster_id
 }
 
 output "iam_arn1" {
-  value = "${module.iam.iam_role_arn_cluster}"
+  value = module.iam.iam_role_arn_cluster
 }
 
 output "iam_arn2" {
-  value = "${module.iam.iam_role_arn_node}"
+  value = module.iam.iam_role_arn_node
 }
 
 output "endpoint" {
-  value = "${module.eks.endpoint}"
+  value = module.eks.endpoint
 }
 
 #
@@ -103,9 +103,9 @@ KUBECONFIG
 }
 
 output "config_map_aws_auth" {
-  value = "${local.config_map_aws_auth}"
+  value = local.config_map_aws_auth
 }
 
 output "kubeconfig" {
-  value = "${local.kubeconfig}"
+  value = local.kubeconfig
 }

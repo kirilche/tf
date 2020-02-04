@@ -2,9 +2,9 @@ variable "name" {}
 variable "role_arn" {}
 
 variable "sgs" {
-  type = "list"
+  type = list(string)
 }
 
 variable "subnets" {
-  type = "list"
+  type = list(string)
 }
