@@ -6,8 +6,6 @@ resource "aws_subnet" "public" {
 
   tags = map(
       "Name", "public_${var.subnet_name}",
-      "kubernetes.io/cluster/${var.cluster_name}", "shared",
-      "kubernetes.io/role/internal_elb", "1",
     )
 }
 

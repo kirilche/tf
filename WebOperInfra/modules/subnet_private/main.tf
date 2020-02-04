@@ -5,7 +5,6 @@ resource "aws_subnet" "private" {
 
   tags = map(
       "Name", "private_${var.subnet_name}",
-      "kubernetes.io/cluster/${var.cluster_name}", "shared",
     )
 }
 

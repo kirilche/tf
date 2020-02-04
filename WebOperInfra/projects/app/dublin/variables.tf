@@ -1,7 +1,3 @@
-variable "cluster_name" {
-  default = "terraform-eks-cluster"
-  type = string
-}
 
 variable "vpc_region" {
   description = "AWS region"
@@ -9,8 +5,8 @@ variable "vpc_region" {
 }
 
 variable "vpc_name" {
-  description = "VPC for building demos"
-  default     = "eks-vpc"
+  description = "VPC for flickrflask"
+  default     = "web-operations-vpc"
 }
 
 variable "vpc_cidr_block" {
